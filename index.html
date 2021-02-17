@@ -1,0 +1,130 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <title>Smart Parking</title>
+  </head>
+  <body>
+    <div style="display: flex">
+      <div style="display: flex; flex-direction: column">
+        <label for="inputData">Input vehicle data:</label>
+        <textarea id="inputData" rows="40" cols="60"></textarea>
+
+        <button id="updateResults">Update results</button>
+      </div>
+
+      <pre id="output"></pre>
+    </div>
+    <script type="module">
+      import { calculateParking } from "./src/parkingCalculator.js";
+
+      const inputData = [
+        {
+          licencePlate: "A",
+          size: "large",
+          fuel: {
+            capacity: 57,
+            level: 0.07,
+          },
+        },
+        {
+          licencePlate: "B",
+          size: "large",
+          fuel: {
+            capacity: 66,
+            level: 0.59,
+          },
+        },
+        {
+          licencePlate: "C",
+          size: "large",
+          fuel: {
+            capacity: 54,
+            level: 0.49,
+          },
+        },
+        {
+          licencePlate: "D",
+          size: "large",
+          fuel: {
+            capacity: 79,
+            level: 0.93,
+          },
+        },
+        {
+          licencePlate: "E",
+          size: "large",
+          fuel: {
+            capacity: 94,
+            level: 0.2,
+          },
+        },
+        {
+          licencePlate: "F",
+          size: "large",
+          fuel: {
+            capacity: 57,
+            level: 0.1,
+          },
+        },
+        {
+          licencePlate: "G",
+          size: "small",
+          fuel: {
+            capacity: 56,
+            level: 0.05,
+          },
+        },
+        {
+          licencePlate: "H",
+          size: "small",
+          fuel: {
+            capacity: 61,
+            level: 0.78,
+          },
+        },
+        {
+          licencePlate: "I",
+          size: "small",
+          fuel: {
+            capacity: 60,
+            level: 0.65,
+          },
+        },
+        {
+          licencePlate: "J",
+          size: "large",
+          fuel: {
+            capacity: 63,
+            level: 0.01,
+          },
+        },
+      ];
+      const inputTextArea = document.getElementById("inputData");
+      const output = document.getElementById("output");
+      inputTextArea.value = JSON.stringify(inputData, null, 2);
+
+      output.textContent = JSON.stringify(calculateParking(inputData), null, 2);
+
+      document.getElementById("updateResults").addEventListener("click", () => {
+        const data = inputTextArea.value;
+        if (
+          /^[\],:{}\s]*$/.test(
+            data
+              .replace(/\\["\\\/bfnrtu]/g, "@")
+              .replace(
+                /"[^"\\\n\r]*"|true|false|null|-?\d+(?:\.\d*)?(?:[eE][+\-]?\d+)?/g,
+                "]"
+              )
+              .replace(/(?:^|:|,)(?:\s*\[)+/g, "")
+          )
+        ) {
+          output.textContent = JSON.stringify(
+            calculateParking(JSON.parse(data)),
+            null,
+            2
+          );
+        }
+      });
+    </script>
+  </body>
+</html>

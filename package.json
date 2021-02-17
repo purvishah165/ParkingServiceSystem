@@ -1,0 +1,17 @@
+{
+  "name": "smart-parking",
+  "version": "1.0.0",
+  "private": true,
+  "scripts": {
+    "test": "mocha --watch -r esm",
+    "start": "esm-server"
+  },
+  "devDependencies": {
+    "chai": "^4.3.0",
+    "esm-server": "^1.1.1",
+    "mocha": "^8.3.0"
+  },
+  "dependencies": {
+    "esm": "^3.2.25"
+  }
+}
