@@ -53,17 +53,13 @@ export const calculateParking = (cars) => {
       : 0
   );
   carsNeedingFuel.forEach((car) => {
-    if (firstEmployee.slots) {
-      assignEmployee(output[car.licencePlate], firstEmployee);
-    } else {
-      assignEmployee(output[car.licencePlate], secondEmployee);
-    }
+    assignCarToEmployee(output[car.licencePlate], firstEmployee, secondEmployee);
   });
   largeCars.forEach((car) => {
-    assignCarToEmployee(car, output, firstEmployee, secondEmployee);
+    assignCarToEmployee(output[car.licencePlate], firstEmployee, secondEmployee);
   });
   smallCars.forEach((car) => {
-    assignCarToEmployee(car, output, firstEmployee, secondEmployee);
+    assignCarToEmployee(output[car.licencePlate], firstEmployee, secondEmployee);
   });
   console.log(`Total money collected ${totalMoneyCollected}`);
   commissionPaid += firstEmployee.commission;
@@ -80,12 +76,12 @@ const assignEmployee = (car, employee) => {
   employee.slots--;
 };
 
-const assignCarToEmployee = (car, output, employeeWithLessCommission, employeeWithHighCommission) => {
-  if (!output[car.licencePlate].employee) {
+const assignCarToEmployee = (car, employeeWithLessCommission, employeeWithHighCommission) => {
+  if (!car.employee) {
     if (employeeWithLessCommission.slots) {
-      assignEmployee(output[car.licencePlate], employeeWithLessCommission);
+      assignEmployee(car, employeeWithLessCommission);
     } else {
-      assignEmployee(output[car.licencePlate], employeeWithHighCommission);
+      assignEmployee(car, employeeWithHighCommission);
     }
   }
 };
